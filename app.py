@@ -38,9 +38,11 @@ try:
 			restart()
 	while True:
 		user_timeline = twitter.get(
-	config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
-	path="statuses/user_timeline")
-		print "new req"
+		  path="search/tweets", # (required)
+		  params={
+		    "q": "@adamscoffeemak1 since:2019-01-12",
+		    "count": "100"
+		print "{{NEW REQ}}"
 
 		currTweet = user_timeline['data'][0]['text']
 		currTweetID = user_timeline['data'][0]['id']
@@ -52,12 +54,16 @@ try:
 		print "Prev ID: %i"%(prevTweetID)
 
 		if currTweetID != prevTweetID:
-			print "===BREW Coffee==="
+			print "===================="
+			print "===BREW Coffee :)==="
+			print "===================="
 			prevTweetID = currTweetID
 			prevTweet = currTweet
 			brewCoffee()
 		else:
+			print "=================="
 			print "===NO Coffee :p==="
+			print "=================="
 		time.sleep(60/pollInterval)
 except:
 	restart()
