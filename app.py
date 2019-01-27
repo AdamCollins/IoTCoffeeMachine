@@ -6,12 +6,6 @@ def restart():
 	os.system("./run.sh")
 	exit()
 try:
-	try:
-		ser = serial.Serial("/dev/ttyACM0",9600)
-		ser.flushInput()
-	except:
-		ser = serial.Serial("/dev/ttyACM1",9600)
-		ser.flushInput()
 	# You should avoid sharing this token,
 	#  and should store it in an env variable
 	lib = lib(token="FZGu2fc2yuc6zyi1lqq1sqsIj9bJv0kkCXzzrwLvrRu7qwt4j6XeNCzEagXtujug")
@@ -30,12 +24,19 @@ try:
 
 	#Turn on servo
 	def brewCoffee():
-		global ser
+		try:
+			ser = serial.Serial("/dev/ttyACM0",9600)
+			ser.flushInput()
+		except:
+			ser = serial.Serial("/dev/ttyACM1",9600)
+			ser.flushInput()
 		try:
 			for x in range(20):
 				ser.write("A")
-		except:
-			restart()
+		except e:
+			print(e)
+		finally:
+			ser.close()
 	while True:
 		user_timeline = twitter.get(
 	config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
