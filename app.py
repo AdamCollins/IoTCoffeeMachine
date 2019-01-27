@@ -21,7 +21,9 @@ def getTweets(since):
     )
 # def brewCoffee():
 #     return
-
+def newRequest(tweet):
+    if "make coffee" in tweet:
+        return True
 def main():
     lastPost = 0
     global pollInterval
@@ -29,8 +31,8 @@ def main():
         print('hello')
         result = getTweets(lastPost)    # gets tweets since last data
         print(result)
-        # if newRequest(result):
-        #     lastPost = result.data[0].id
+        # if newRequest(result.get("data")[0].get("statuses")[0]):
+        #     lastPost = result.get("data")[0].get("id")
         #     #brewCoffee():
 
         time.sleep(60/pollInterval)
