@@ -39,11 +39,14 @@ try:
 			ser.close()
 	while True:
 		user_timeline = twitter.get(
-		  path="search/tweets", # (required)
-		  params={
-		    "q": "@adamscoffeemak1 since:2019-01-12",
-		    "count": "100"
-		print "{{NEW REQ}}"
+		config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\":\"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
+		path="search/tweets", # (required)
+		params={
+	    "q": "@adamscoffeemak1 since:2019-01-12",
+	    "count": "100"
+	  		}
+	  	)
+		print "==NEW REQ=="
 
 		currTweet = user_timeline['data'][0]['text']
 		currTweetID = user_timeline['data'][0]['id']
