@@ -1,50 +1,87 @@
 from lib import lib
-# import time
+import time, json
 
 # You should avoid sharing this token,
 #  and should store it in an env variable
 lib = lib(token="FZGu2fc2yuc6zyi1lqq1sqsIj9bJv0kkCXzzrwLvrRu7qwt4j6XeNCzEagXtujug")
-import ipdb;ipdb.set_trace()
 twitter = lib.gkaww.twitter["@0.0.2"]
 
-
-
 #number of polls/min
-# pollInterval = 1
+pollInterval = 3
 
-user_timeline = twitter.get(
+prevTweetID = 0
+
+prevTweet = "None"
+
+
+while True:
+	user_timeline = twitter.get(
   config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
-  path="statuses/user_timeline"
-)
+  path="statuses/user_timeline")
+	print "new req"
+
+	currTweet = user_timeline['data'][0]['text']
+	currTweetID = user_timeline['data'][0]['id']
+
+	print "Curr Tweet: %s"%(currTweet)
+	print "Curr ID: %i"%(currTweetID)
+
+	print "Prev Tweet: %s"%(prevTweet)
+	print "Prev ID: %i"%(prevTweetID)
+
+	if currTweetID != prevTweetID:
+		print "===BREW Coffee==="
+		prevTweetID = currTweetID
+		prevTweet = currTweet
+	else:
+		print "===NO Coffee :p==="
+
+	
+	time.sleep(60/pollInterval)
+
+# print lastTweet
 
 # def getTweets(since):
-#     return twitter.statuses.user_timeline(
-#         config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
-#         screen_name="pyram66",
-#         since_id=since
-#         )
+#     return twitter.get(
+#     config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
+#     path="statuses/user_timeline"
+#     params={
+#     	"q": "hello since:2019-01-25",
+#     	"count": "2"
+#     }
+# )
+
+
 
 # # def brewCoffee():
 # #     return
-
+# def newRequest(tweet):
+#     if "make coffee" in tweet:
+#         return True
 # def main():
 #     lastPost = 0
 #     global pollInterval
 #     while True:
-#         print('hello')
-#         result = getTweets(lastPost)    # gets tweets since last data
-#         if newRequest(result):
-#             lastPost = result.data[0].id
+#         # print('hello')
+#         # result = getTweets(lastPost)    # gets tweets since last data
+#         # print(result)
+#         if newRequest(user_timeline):
+#         	# print lastTweet
+#         # if newRequest(result.get("data")[0].get("text")[0]):
+#         #     lastPost = result.get("data")[0].get("id")
+#         #     print lastPost
+#             # import ipdb;ipdb.set_trace()
+#             # return True
 #             #brewCoffee():
 
 #         time.sleep(60/pollInterval)
 
 
-# # result = twitter.statuses.user_timeline(
-# #   config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
-# #   screen_name="pyram66",
-# #   since_id=0
-# # )
+# result = twitter.statuses.user_timeline(
+#   config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
+#   screen_name="pyram66",
+#   since_id=0
+# )
 
 
 # if __name__ == '__main__':
