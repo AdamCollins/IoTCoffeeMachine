@@ -9,16 +9,26 @@ twitter = lib.gkaww.twitter["@0.0.2"]
 #number of polls/min
 pollInterval = 1
 
+def getTweets(since):
+    return twitter.statuses.user_timeline(
+        config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
+        screen_name="pyram66",
+        since_id=since
+        )
+
+# def brewCoffee():
+#     return
+
 def main():
     lastPost = 0
     global pollInterval
     while True:
         print('hello')
-        result = twitter.statuses.user_timeline(
-        config="{\"consumer_key\":\"ZtSUgVNL9vLVEvMhJZUJwqR7O\",\"consumer_secret\":\"I93nmt7E361jPRD0xw0Z53Ok2uSF7WzOJXcJDwEijUQlrlXOPh\",\"access_token\":\"1036312409151918080-bDBUwjQ2Obfn9GtHXeE8vfkUiuyjUM\",\"access_token_secret\": \"r5K7MU6rj76wICiFtaN96b7YSIME6eam9FpilDwylJbkY\"}", # (required)
-        screen_name="pyram66",
-        since_id=lastPost
-        )
+        result = getTweets(lastPost)    # gets tweets since last data
+        if newRequest(result):
+            lastPost = result.data[0].id
+            #brewCoffee():
+
         time.sleep(60/pollInterval)
 
 
